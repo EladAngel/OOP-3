@@ -21,6 +21,7 @@ public abstract class Player extends Unit {
         addExperience(e.getXP());
         e.death();
     }
+    //elad
     public void levelUp(){
         XP-=levelReq();
         HP.addMax(healthGain());
