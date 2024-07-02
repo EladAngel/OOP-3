@@ -30,14 +30,15 @@ public abstract class Unit extends Tile {
     public void battle(Unit enemy){
         int attack=this.attack();
         int defense=this.defense();
-        int damageTaken=enemy.HP.takeDamage(attack-defense);
+        int damageTaken = enemy.HP.takeDamage(attack-defense);
         if(!enemy.alive()){
             kill(enemy);
         }
     }
-    public boolean alive(){
-        return HP.isAlive();
+    public int takeDamage(int damage){
+        return HP.takeDamage(damage);
     }
+    public boolean alive(){return HP.isAlive();}
     public abstract void kill(Unit u);
     public abstract void death();
     public void interact (Tile t){
@@ -45,8 +46,16 @@ public abstract class Unit extends Tile {
     }
     public void visit(Wall w){}
     public void visit(Empty e){
-        //switch place
+        swapPositions(e.getPosition(),getPosition());
+    }
+    public void swapPositions(Position p1, Position p2){
+        Position p = p1;
+        p1 = p2;
+        p2 = p;
     }
     public abstract void visit(Enemy e);
     public abstract void visit(Player p);
+    public String getName(){
+        return name;
+    }
 }

@@ -10,4 +10,10 @@ public class Position {
     public double getDistance(Position pos) {
         return Math.sqrt(Math.pow(pos.x - this.x, 2) + Math.pow(pos.y - this.y, 2));
     }
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
 }

@@ -11,4 +11,10 @@ public abstract class  Tile {
         this.position = position;
     }
     public abstract void accept(Unit u);
+    public String toString(){
+        return ""+tile;
+    }
+    public Position getPosition() {
+        return position;
+    }
 }

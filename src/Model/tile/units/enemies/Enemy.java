@@ -25,4 +25,5 @@ public abstract class Enemy extends Unit {
     public void accept(Unit u){
         u.visit(this);
     }
+
 }

@@ -1,10 +1,11 @@
 package Model.tile.units.players;
 
 import Model.Utils.Position;
+import Model.tile.units.HeroicUnit;
 import Model.tile.units.Unit;
 import Model.tile.units.enemies.Enemy;
 
-public abstract class Player extends Unit {
+public abstract class Player extends Unit implements HeroicUnit {
     private static final char Player_Tile='@';
     protected static final int ATTACK_GAIN=4;
     protected static final int DEFENSE_GAIN=1;
@@ -17,11 +18,11 @@ public abstract class Player extends Unit {
         level = 0;
         XP = 0;
     }
-    public void kill(Enemy e){
+    public void kill(Enemy e) {
         addExperience(e.getXP());
         e.death();
     }
-    //elad
+
     public void levelUp(){
         XP-=levelReq();
         HP.addMax(healthGain());
@@ -51,10 +52,14 @@ public abstract class Player extends Unit {
     public void accept(Unit u){
         u.visit(this);
     }
+    public void tick(){
+        char c = getInput();
+        
+    }
 
     public void visit(Player p){}
     public void visit(Enemy e){
-        //start combat
+        battle(e);
     }
 
 }
