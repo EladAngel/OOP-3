@@ -49,9 +49,6 @@ public abstract class Mage extends Player {
             }
         }
     }
-    public void tick(){
-        //implement
-    }
     public int manaPoolGain(){
         return MANA_POOL_GAIN * level;
     }

@@ -36,9 +36,6 @@ public abstract class Hunter extends Player {
         }
         arrowCount--;
     }
-    public void tick(){
-        //implement
-    }
 
     public int arrowGain(){
         return ARROW_GAIN * level;

@@ -16,4 +16,7 @@ public class Warrior extends Player {
         super.levelUp();
 
     }
+    public void castAbility(){
+
+    }
 }

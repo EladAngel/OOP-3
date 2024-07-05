@@ -34,9 +34,6 @@ public class Rogue extends Player {
             }
         }
     }
-    public void tick(){
-        //implement
-    }
     protected int attackGain(){
         return level*ATTACK_GAIN;
     }

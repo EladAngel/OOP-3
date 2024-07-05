@@ -54,7 +54,6 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
     public void tick(){
         char c = getInput();
-
     }
 
     public void visit(Player p){}
