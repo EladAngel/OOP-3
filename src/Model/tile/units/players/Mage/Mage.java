@@ -37,14 +37,16 @@ public abstract class Mage extends Player {
 
     }
     public void castAbility(){
-        currMana = currMana - manaCost;
-        int hits = 0;
-        List<Enemy> list = EnemiesNearby(abilityRange,position);
-        while(hits < hitCount && list != null){
-            int index = gen.generate(list.size());
-            list.get(index).takeDamage(spellPower);
-            hits += 1;
-            list = EnemiesNearby(abilityRange,position);
+        if(enoughResource(currMana - manaCost)){
+            currMana = currMana - manaCost;
+            int hits = 0;
+            List<Enemy> list = EnemiesNearby(abilityRange,position);
+            while(hits < hitCount && list != null){
+                int index = gen.generate(list.size());
+                list.get(index).takeDamage(spellPower);
+                hits += 1;
+                list = EnemiesNearby(abilityRange,position);
+            }
         }
     }
     public void tick(){

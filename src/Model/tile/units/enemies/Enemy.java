@@ -20,7 +20,13 @@ public abstract class Enemy extends Unit {
     }
     public void visit(Enemy e){}
     public void visit(Player p){
-        p.battle(this);
+        battle(p);
+        if(!p.alive()){
+            p.onDeath();
+        }
+    }
+    public void onDeath(){
+
     }
     public void accept(Unit u){
         u.visit(this);

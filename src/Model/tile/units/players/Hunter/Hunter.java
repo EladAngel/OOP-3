@@ -26,15 +26,15 @@ public abstract class Hunter extends Player {
         arrowCount += arrowGain();
     }
     public void castAbility(){
-        if(arrowCount != 0){
+        if(enoughResource(arrowCount)){
             Enemy e = ClosestEnemy(range,position);
             if(e != null) {
                 e.takeDamage(attack);
                 if (!e.alive())
-                    kill(e);
-                arrowCount--;
+                    e.onDeath();
             }
         }
+        arrowCount--;
     }
     public void tick(){
         //implement

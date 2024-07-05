@@ -23,10 +23,15 @@ public class Rogue extends Player {
         currentEnergy = currEnergyGain();
     }
     public void castAbility(){
-        currentEnergy = currentEnergy - cost;
-        List<Enemy> list = EnemiesNearby(1,position);
-        for(Enemy e: list){
-            battle(e);
+        if(enoughResource(currentEnergy - cost)) {
+            currentEnergy = currentEnergy - cost;
+            List<Enemy> list = EnemiesNearby(1, position);
+            for (Enemy e : list) {
+                e.takeDamage(attack);
+                if (!e.alive()) {
+                    e.onDeath();
+                }
+            }
         }
     }
     public void tick(){

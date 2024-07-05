@@ -54,12 +54,21 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
     public void tick(){
         char c = getInput();
-        
+
     }
 
     public void visit(Player p){}
     public void visit(Enemy e){
         battle(e);
+        if(!e.alive()){
+            e.onDeath();
+        }
+    }
+    public void onDeath(){
+
+    }
+    public boolean enoughResource(int i){
+        return i>=0;
     }
 
 }
