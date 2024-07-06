@@ -10,6 +10,7 @@ import Model.tile.Wall;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.enemies.Monster.Boss.Boss;
 import Model.tile.units.enemies.Monster.Monster;
+import Model.tile.units.enemies.Trap.Trap;
 import Model.tile.units.players.Hunter.Hunter;
 import Model.tile.units.players.Mage.Mage;
 import Model.tile.units.players.Player;
@@ -62,10 +63,16 @@ public class TileFactory {
             case 's' -> new Monster(25,8,3,80,"Lannister Solider",'s',p,3,gen, semi,mc);
             case 'k' -> new Monster(50,14,8,200,"Lannister Knight", 'k',p,4,gen, semi,mc);
             case 'q' -> new Monster(100, 20,15,400,"Queen's Gaurd",'q',p,5,gen,semi,mc);
-            case 'z' -> new Monster(250, 30,15,600,"Wright",'z',p,3,gen,semi,mc);
-            case 'b' -> new Monster(500, 75,30,1000,"Bear Wright",'b',p,5,gen,semi,mc);
-            case 'g' -> new Monster(1000, 100,40,1500,"Giant Wright",'g',p,6,gen,semi,mc);
-            case 'M' -> new Boss(100, 20,15,400,"Queen's Gaurd",'q',p,5,5,gen,semi,mc);
+            case 'z' -> new Monster(100, 30,15,600,"Wright",'z',p,3,gen,semi,mc);
+            case 'b' -> new Monster(250, 75,30,1000,"Bear Wright",'b',p,4,gen,semi,mc);
+            case 'g' -> new Monster(500, 100,40,1500,"Giant Wright",'g',p,5,gen,semi,mc);
+            case 'w' -> new Monster(1000, 150,40,2000,"White Walker",'w',p,6,gen,semi,mc);
+            case 'M' -> new Boss(500, 60,25,1000,"The Mountain",'M',p,6,5,gen,semi,mc);
+            case 'C' -> new Boss(1000, 10,10,100,"Queen Cersei",'C',p,1,8,gen,semi,mc);
+            case 'K' -> new Boss(5000, 300,150,5000,"Night's King",'K',p,8,3,gen,semi,mc);
+            case 'B' -> new Trap(250, 1,1,1,"Bonus Trap",'B',p,1,3,gen,semi,mc);
+            case 'Q' -> new Trap(100, 50,10,250,"Queen's Trap",'Q',p,3,7,gen,semi,mc);
+            case 'D' -> new Trap(250, 100,20,500,"Queen's Gaurd",'K',p,1,10,gen,semi,mc);
             default -> throw new RuntimeException("The man who passes the sentence should swing the sword");
 
         };
