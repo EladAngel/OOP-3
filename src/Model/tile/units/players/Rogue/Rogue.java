@@ -31,8 +31,8 @@ public class Rogue extends Player {
             for (Enemy e : list) {
                 int Defense = e.defense();
                 messageCallBack.send(e.getName()+" rolled "+Defense+" defense points.");
-                e.takeDamage(attack - Defense);
-                messageCallBack.send(getName()+" hit "+e.getName()+" for "+Math.max(0,attack - Defense)+ " ability damage.");
+                int DamageTaken = e.takeDamage(attack - Defense);
+                messageCallBack.send(getName()+" hit "+e.getName()+" for "+ DamageTaken + " ability damage.");
                 if (!e.alive())
                     e.onDeath();
             }

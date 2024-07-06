@@ -48,8 +48,8 @@ public abstract class Mage extends Player {
                 Enemy e = list.get(index);
                 int Defense = e.defense();
                 messageCallBack.send(e.getName()+" rolled "+Defense+" defense points.");
-                list.get(index).takeDamage(spellPower - Defense);
-                messageCallBack.send(getName()+" hit "+e.getName()+" for "+ Math.max(0,spellPower - Defense)+" ability damage.");
+                int damageTaken = list.get(index).takeDamage(spellPower - Defense);
+                messageCallBack.send(getName()+" hit "+e.getName()+" for "+ damageTaken +" ability damage.");
                 if(!e.alive())
                     e.onDeath();
                 hits += 1;

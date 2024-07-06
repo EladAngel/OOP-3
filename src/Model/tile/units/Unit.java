@@ -38,13 +38,11 @@ public abstract class Unit extends Tile {
         messageCallBack.send(getName()+ " rolled "+Attack+" attack points.");
         int Defense=this.defense();
         messageCallBack.send(getName()+ " rolled "+Defense+" defense points.");
-        int damageTaken = enemy.HP.takeDamage(Attack-Defense);
-        if(damageTaken>0){
-            messageCallBack.send(getName()+" dealt "+Math.max((Attack-Defense),0)+" damage to "+enemy.getName());
-        }
+        int damageTaken = enemy.takeDamage(Attack-Defense);
+        messageCallBack.send(getName()+" dealt "+damageTaken+" damage to "+enemy.getName());
     }
-    public void takeDamage(int damage){
-        HP.takeDamage(damage);
+    public int takeDamage(int damage){
+        return HP.takeDamage(damage);
     }
     public boolean alive(){return HP.isAlive();}
     public void interact (Tile t){

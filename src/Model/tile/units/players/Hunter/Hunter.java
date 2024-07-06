@@ -33,8 +33,8 @@ public abstract class Hunter extends Player {
                 messageCallBack.send(getName()+" fired an arrow at "+e.getName()+".");
                 int Defense = e.defense();
                 messageCallBack.send(e.getName()+" rolled "+Defense+" defense points.");
-                e.takeDamage(attack - Defense);
-                messageCallBack.send(getName()+" hit "+e.getName()+" for "+ Math.max(0,attack - Defense)+ " ability damage.");
+                int damageTaken = e.takeDamage(attack - Defense);
+                messageCallBack.send(getName()+" hit "+e.getName()+" for "+ damageTaken+ " ability damage.");
                 if (!e.alive())
                     e.onDeath();
             }

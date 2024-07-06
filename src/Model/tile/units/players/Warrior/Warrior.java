@@ -43,8 +43,8 @@ public class Warrior extends Player {
                 Enemy e = list.get(index);
                 int Defense = e.defense();
                 messageCallBack.send(e.getName()+" rolled "+Defense+ " defense points.");
-                e.takeDamage((int)((0.1*HP.getCurr())- Defense));
-                messageCallBack.send(getName()+" hit "+e.getName()+" for "+Math.max(0,(0.1*HP.getCurr())- Defense)+ " ability damage.");
+                int damageTaken = e.takeDamage((int)((0.1*HP.getCurr())- Defense));
+                messageCallBack.send(getName()+" hit "+e.getName()+" for "+damageTaken+ " ability damage.");
                 if(!e.alive())
                     e.onDeath();
             }
