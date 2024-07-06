@@ -3,7 +3,7 @@ import Model.Utils.Position;
 import Model.tile.units.Unit;
 
 public class Empty extends Tile {
-    protected static char ch='.';
+    protected static final char ch='.';
     public Empty(Position pos) {
         super(ch,pos);
     }
