@@ -6,6 +6,7 @@ import Model.Utils.Position;
 import Model.tile.Tile;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
+import View.OutPut.MessageCallBack;
 import View.inputReader.InputReader;
 
 import java.util.List;
@@ -18,8 +19,9 @@ public  class Hunter extends Player {
     protected static int DEFENSE_GAIN = 1;
     protected static int ARROW_GAIN = 10;
 
-    public Hunter(int attack, int defense, int HP, String name, Position pos, int range, InputReader inputReader, Generator generator, SemiBoard semiBoard){
-        super(attack, defense, HP, name, pos, inputReader, generator, semiBoard);
+    public Hunter(int attack, int defense, int HP, String name, Position pos, int range,
+           InputReader inputReader, Generator generator, SemiBoard semiBoard, MessageCallBack mc){
+        super(attack, defense, HP, name, pos, inputReader, generator, semiBoard, mc);
         this.arrowCount = level*10;
         this.range = range;
         this.tickCount = 0;

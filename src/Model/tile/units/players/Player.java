@@ -6,6 +6,7 @@ import Model.Utils.Position;
 import Model.tile.units.HeroicUnit;
 import Model.tile.units.Unit;
 import Model.tile.units.enemies.Enemy;
+import View.OutPut.MessageCallBack;
 import View.inputReader.InputReader;
 
 public abstract class Player extends Unit implements HeroicUnit {
@@ -17,8 +18,8 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected  int level;
     protected int XP;
     protected InputReader inputReader;
-    public Player(int attack, int defense, int HP, String name, Position pos, InputReader inputReader, Generator generator, SemiBoard semiBoard) {
-        super(attack,defense,HP,name, Player_Tile,pos,generator,semiBoard);
+    public Player(int attack, int defense, int HP, String name, Position pos, InputReader inputReader, Generator generator, SemiBoard semiBoard, MessageCallBack mc) {
+        super(attack,defense,HP,name, Player_Tile,pos,generator,semiBoard, mc);
         level = 0;
         XP = 0;
         this.inputReader = inputReader;
@@ -81,6 +82,7 @@ public abstract class Player extends Unit implements HeroicUnit {
             e.onDeath();
         }
     }
+    public void setBoard(SemiBoard semiBoard){ this.semiBoard = semiBoard; }
     public void onDeath(){
         Player_Tile = 'X';
     }

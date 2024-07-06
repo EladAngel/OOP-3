@@ -8,6 +8,7 @@ import Model.tile.Wall;
 import Model.tile.Empty;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
+import View.OutPut.MessageCallBack;
 
 public abstract class Unit extends Tile {
     protected int attack;
@@ -16,8 +17,9 @@ public abstract class Unit extends Tile {
     protected String name;
     protected Generator generator;
     protected SemiBoard semiBoard;
+    protected MessageCallBack messageCallBack;
 
-    public Unit(int attack, int defense, int HP, String name, char ch, Position pos,Generator generator, SemiBoard semiBoard) {
+    public Unit(int attack, int defense, int HP, String name, char ch, Position pos,Generator generator, SemiBoard semiBoard, MessageCallBack mc) {
         super(ch,pos);
         this.attack=attack;
         this.defense=defense;
@@ -25,6 +27,7 @@ public abstract class Unit extends Tile {
         this.name=name;
         this.generator=generator;
         this.semiBoard=semiBoard;
+        this.messageCallBack=mc;
     }
     public int attack(){
         return generator.generate(attack);

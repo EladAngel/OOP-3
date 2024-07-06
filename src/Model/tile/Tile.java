@@ -8,7 +8,7 @@ import View.OutPut.MessageCallBack;
 public abstract class  Tile {
     protected char tile;
     protected Position position;
-    protected MessageCallBack messageCallBack;
+
 
     public Tile(char tile, Position position) {
         this.tile = tile;

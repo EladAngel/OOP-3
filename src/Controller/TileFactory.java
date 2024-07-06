@@ -1,17 +1,22 @@
 package Controller;
 
+import Model.Board.SemiBoard;
+import Model.Utils.Generators.Generator;
 import Model.Utils.Pair;
 import Model.Utils.Position;
 import Model.tile.Empty;
 import Model.tile.Tile;
 import Model.tile.Wall;
 import Model.tile.units.enemies.Enemy;
+import Model.tile.units.enemies.Monster.Boss.Boss;
 import Model.tile.units.enemies.Monster.Monster;
 import Model.tile.units.players.Hunter.Hunter;
 import Model.tile.units.players.Mage.Mage;
 import Model.tile.units.players.Player;
 import Model.tile.units.players.Rogue.Rogue;
 import Model.tile.units.players.Warrior.Warrior;
+import View.OutPut.MessageCallBack;
+import View.inputReader.InputReader;
 
 
 import java.util.ArrayList;
@@ -20,10 +25,10 @@ import java.util.TreeMap;
 
 public class TileFactory {
 
-    public Pair<TreeMap<Position,Tile>,List<Enemy>> createBoard(List<String> lines, Player player) {
+    public void fillBoard(TreeMap<Position,Tile> board, List<Enemy> enemies,
+          List<String> lines, Player player, Generator generator, MessageCallBack mc, InputReader in, SemiBoard semi) {
         int i=0;
-        TreeMap<Position,Tile> board = new TreeMap<>();
-        List<Enemy> enemies = new ArrayList<>();
+
         for(String line : lines){
             int j=0;
             for(Character c : line.toCharArray()){
@@ -39,9 +44,10 @@ public class TileFactory {
                    case '@':
                        player.getPosition().setX(i);
                        player.getPosition().setY(j);
+                       player.setBoard(semi);
                        board.put(player.getPosition(),player);
                    default:
-                       Enemy enemy= createEnemy(c,new Position(i,j));
+                       Enemy enemy= createEnemy(c,new Position(i,j),generator,semi,mc);
                        board.put(enemy.getPosition(),enemy);
                        enemies.add(enemy);
                }
@@ -49,26 +55,31 @@ public class TileFactory {
             }
             i++;
         }
-        return null;
     }
 
-    private Enemy createEnemy(Character c, Position p) {
+    private Enemy createEnemy(Character c, Position p,Generator gen, SemiBoard semi, MessageCallBack mc) {
         return switch(c){
-            case 's' -> new Monster();
+            case 's' -> new Monster(25,8,3,80,"Lannister Solider",'s',p,3,gen, semi,mc);
+            case 'k' -> new Monster(50,14,8,200,"Lannister Knight", 'k',p,4,gen, semi,mc);
+            case 'q' -> new Monster(100, 20,15,400,"Queen's Gaurd",'q',p,5,gen,semi,mc);
+            case 'z' -> new Monster(250, 30,15,600,"Wright",'z',p,3,gen,semi,mc);
+            case 'b' -> new Monster(500, 75,30,1000,"Bear Wright",'b',p,5,gen,semi,mc);
+            case 'g' -> new Monster(1000, 100,40,1500,"Giant Wright",'g',p,6,gen,semi,mc);
+            case 'M' -> new Boss(100, 20,15,400,"Queen's Gaurd",'q',p,5,5,gen,semi,mc);
             default -> throw new RuntimeException("The man who passes the sentence should swing the sword");
 
         };
     }
 
-    public Player createPlayer(int i){
+    public Player createPlayer(int i, InputReader input, Generator gen, SemiBoard semi, MessageCallBack mc){
         return switch (i) {
-            case 1 -> new Warrior(30, 4, 300, "Jon Snow",new Position(-1,-1) , 0);
-            case 2 -> new Warrior(20, 4, 400, "The Hound", new Position(-1,-1), 0);
-            case 3 -> new Mage(5, 1, 100, "Melisandre", new Position(-1,-1), 300, 30, 15, 5, 6);
-            case 4 -> new Mage(25, 4, 250, "Thoros of Myr", new Position(-1,-1), 150, 20, 20, 3, 4);
-            case 5 -> new Rogue(40, 2, 150, "Arya Strak", new Position(-1,-1), 20);
-            case 6 -> new Rogue(35, 3, 250, "Bronn", new Position(-1,-1), 50);
-            case 7 -> new Hunter(30, 2, 220, "Ygritte", new Position(-1,-1), 6);
+            case 1 -> new Warrior(30, 4, 300, "Jon Snow",new Position(-1,-1) , 0,input,gen,semi, mc);
+            case 2 -> new Warrior(20, 4, 400, "The Hound", new Position(-1,-1), 0,input,gen,semi , mc);
+            case 3 -> new Mage(5, 1, 100, "Melisandre", new Position(-1,-1), 300, 30, 15, 5, 6,input,gen,semi, mc);
+            case 4 -> new Mage(25, 4, 250, "Thoros of Myr", new Position(-1,-1), 150, 20, 20, 3, 4,input,gen,semi, mc);
+            case 5 -> new Rogue(40, 2, 150, "Arya Strak", new Position(-1,-1), 20,input,gen,semi, mc);
+            case 6 -> new Rogue(35, 3, 250, "Bronn", new Position(-1,-1), 50,input,gen,semi, mc);
+            case 7 -> new Hunter(30, 2, 220, "Ygritte", new Position(-1,-1), 6,input,gen,semi,mc);
             default -> throw new RuntimeException("Chaos isn't a pit. Chaos is a ladder");
         };
     }

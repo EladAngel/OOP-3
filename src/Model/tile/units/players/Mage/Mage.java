@@ -6,6 +6,7 @@ import Model.Utils.Generators.randomGenerator;
 import Model.Utils.Position;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
+import View.OutPut.MessageCallBack;
 import View.inputReader.InputReader;
 
 import java.util.List;
@@ -21,8 +22,9 @@ public class Mage extends Player {
     protected static final int SPELL_POWER_GAIN = 25;
     protected randomGenerator gen;
 
-    public Mage(int attack, int defense, int HP, String name, Position pos, int manaPool, int manaCost, int spellPower, int hitCount, int abilityRange, InputReader inputReader, Generator generator, SemiBoard semiBoard) {
-        super(attack, defense, HP, name, pos, inputReader,generator, semiBoard);
+    public Mage(int attack, int defense, int HP, String name, Position pos, int manaPool, int manaCost, int spellPower,
+                int hitCount, int abilityRange, InputReader inputReader, Generator generator, SemiBoard semiBoard, MessageCallBack mc) {
+        super(attack, defense, HP, name, pos, inputReader,generator, semiBoard, mc);
         this.manaPool = manaPool;
         this.manaCost = manaCost;
         this.spellPower = spellPower;

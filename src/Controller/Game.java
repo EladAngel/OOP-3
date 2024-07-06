@@ -1,19 +1,19 @@
 package Controller;
 
 import Model.Board.Board;
+import Model.Utils.Generators.Generator;
 import Model.Utils.Pair;
 import Model.Utils.Position;
+import Model.Utils.PositionComparator;
 import Model.tile.Tile;
 import Model.tile.units.enemies.Enemy;
-import Model.tile.units.players.Hunter.Hunter;
-import Model.tile.units.players.Mage.Mage;
 import Model.tile.units.players.Player;
-import Model.tile.units.players.Rogue.Rogue;
-import Model.tile.units.players.Warrior.Warrior;
 import View.OutPut.CLI;
+import View.OutPut.View;
 import View.OutPut.MessageCallBack;
 import View.inputReader.InputReader;
 import View.inputReader.ScannerReader;
+import Model.Utils.Generators.randomGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -25,27 +25,36 @@ public class Game {
     private int currLevel;
     private InputReader input;
     private TileFactory factory;
+    private Generator generator;
 
     public Game(List<String> fileNames){
-         new Game(fileNames,new ScannerReader());
+        new Game(
+                fileNames,new ScannerReader(),
+                new randomGenerator(), new CLI());
     }
-    public Game(List<String> fileNames, InputReader input){
+
+    public Game(List<String> fileNames, InputReader input, Generator generator, View view){
         this.input=input;
         factory =new TileFactory();
-        mc= new CLI().getMessageCallBack();
+        mc= view.getMessageCallBack();
+        this.generator=generator;
         player=createPlayer();
         levels=new ArrayList<Level>();
         int i=0;
         for(String name: fileNames){
             List<String> lines=TextReader.read(name);
             Pair<Integer,Integer> boardSize= TextReader.getSize(name);
-            Pair<TreeMap<Position, Tile>,List<Enemy>> board=factory.createBoard(lines,player);
+            List<Enemy> enemies=new ArrayList<>();
+            PositionComparator pc=new PositionComparator();
+            TreeMap<Position,Tile> map= new TreeMap<>(pc);
             Board b= new Board(
-                    board.getFirst(),
+                    map,
                     boardSize.getFirst(),
                     boardSize.getSecond(),
-                    board.getSecond(),
+                    enemies,
                     player );
+            factory.fillBoard(map, enemies,lines,player, generator,mc,input,b);
+
             levels.add(new Level(b,i));
             i++;
         }
@@ -77,6 +86,6 @@ public class Game {
                 "6. Bronn                Health: 250/250         Attack: 35              Defense: 3              Level: 1                Experience: 0/50                Energy: 100/100\n" +
                 "7. Ygritte              Health: 220/220         Attack: 30              Defense: 2              Level: 1                Experience: 0/50                Arrows: 10              Range: 6");
         int i= input.getNum();
-        return factory.createPlayer(i);
+        return factory.createPlayer(i,input,generator,null,mc);
     }
 }

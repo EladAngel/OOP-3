@@ -6,14 +6,15 @@ import Model.Utils.Position;
 import Model.tile.units.Unit;
 import Model.tile.units.enemies.Enemy;
 import Model.Board.SemiBoard;
+import View.OutPut.MessageCallBack;
 
 import java.util.Random;
 
 public class Monster extends Enemy {
     protected int visionRange;
 
-    public Monster(int XP, int attack, int defense, int HP, String name, char c, Position pos ,int range,Generator generator, SemiBoard semiBoard) {
-        super(XP, attack, defense, HP, name, c, pos,generator, semiBoard);
+    public Monster(int XP, int attack, int defense, int HP, String name, char c, Position pos , int range, Generator generator, SemiBoard semiBoard, MessageCallBack mc) {
+        super(XP, attack, defense, HP, name, c, pos,generator, semiBoard, mc);
         visionRange = range;
 
     }

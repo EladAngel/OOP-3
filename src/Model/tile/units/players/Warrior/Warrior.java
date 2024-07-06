@@ -6,6 +6,7 @@ import Model.Utils.Generators.randomGenerator;
 import Model.Utils.Position;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
+import View.OutPut.MessageCallBack;
 import View.inputReader.InputReader;
 
 import java.util.List;
@@ -19,8 +20,9 @@ public class Warrior extends Player {
     public static final int CAST_DEFENSE_GAIN = 5;
 
 
-    public Warrior(int attack, int defense, int HP, String name, Position pos, int cooldown, InputReader inputReader, Generator generator, SemiBoard semiBoard){
-        super(attack, defense, HP, name, pos,inputReader,generator,semiBoard);
+    public Warrior(int attack, int defense, int HP, String name, Position pos,
+                   int cooldown, InputReader inputReader, Generator generator, SemiBoard semiBoard, MessageCallBack mc){
+        super(attack, defense, HP, name, pos,inputReader,generator,semiBoard, mc);
         this.abilityCooldown = cooldown;
         remainingCooldown = 0;
     }
