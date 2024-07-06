@@ -9,4 +9,7 @@ public class randomGenerator implements Generator{
     public int generate(int n){
        return rand.nextInt(n);
     }
+    public int getRandomSign(){
+        return rand.nextBoolean() ? 1 : -1;
+    }
 }

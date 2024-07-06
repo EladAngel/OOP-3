@@ -23,9 +23,17 @@ public abstract class Enemy extends Unit {
         }
     }
     public void onDeath(){
+        messageCallBack.send(getName()+" died.");
         semiBoard.removeEnemy(this);
+        Player p = semiBoard.getPlayer();
+        p.addExperience(getXP());
+        messageCallBack.send(p.getName()+" gained "+getXP()+" experience.");
+
     }
     public void accept(Unit u){
         u.visit(this);
+    }
+    public String getDescription(){
+        return super.getDescription()+"         "+"Experience: "+XP;
     }
 }

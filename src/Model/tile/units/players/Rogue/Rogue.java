@@ -21,17 +21,24 @@ public class Rogue extends Player {
         super.levelUp();
         attack += attackGain();
         currentEnergy = currEnergyGain();
+        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
     }
     public void castAbility(){
         if(enoughResource(currentEnergy - cost)) {
+            messageCallBack.send(getName()+" cast Fan Of Knives.");
             currentEnergy = currentEnergy - cost;
-            List<Enemy> list = semiBoard.EnemiesNearby(1, position);
+            List<Enemy> list = semiBoard.enemiesNearby(1, position);
             for (Enemy e : list) {
-                e.takeDamage(attack);
-                if (!e.alive()) {
+                int Defense = e.defense();
+                messageCallBack.send(e.getName()+" rolled "+Defense+" defense points.");
+                e.takeDamage(attack - Defense);
+                messageCallBack.send(getName()+" hit "+e.getName()+" for "+Math.max(0,attack - Defense)+ " ability damage.");
+                if (!e.alive())
                     e.onDeath();
-                }
             }
+        }
+        else{
+            messageCallBack.send(getName()+" tried to cast Fan Of Knives but failed.");
         }
     }
     public void tick(){
@@ -43,5 +50,8 @@ public class Rogue extends Player {
     }
     protected int currEnergyGain(){
         return CURR_ENERGY_GAIN;
+    }
+    public String getDescription(){
+        return super.getDescription()+"         "+"Energy: "+currentEnergy+"/"+CURR_ENERGY_GAIN;
     }
 }

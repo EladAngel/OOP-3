@@ -28,4 +28,7 @@ public class Health {
     public int getCurr(){
         return curr;
     }
+    public int getMax(){
+        return max;
+    }
 }

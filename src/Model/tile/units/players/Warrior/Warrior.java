@@ -30,18 +30,29 @@ public class Warrior extends Player {
         HP.heal(healthGain());
         attack+=attackGain();
         defense+=defenseGain();
+        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
     }
     public void castAbility(){
-        remainingCooldown = abilityCooldown;
-        HP.heal(castDefenseGain());
-        List<Enemy> list = semiBoard.enemiesNearby(3,position);
-        for(int i=0; i<list.size(); i++){
-            int index = gen.generate(list.size());
-            Enemy e = list.get(index);
-            e.takeDamage((int)(0.1*HP.getCurr()));
-            if(!e.alive())
-                e.onDeath();
+        if(remainingCooldown == 0){
+            messageCallBack.send(getName()+" used Avenger's shield, healing for "+castDefenseGain()+".");
+            remainingCooldown = abilityCooldown;
+            HP.heal(castDefenseGain());
+            List<Enemy> list = semiBoard.enemiesNearby(3,position);
+            for(int i=0; i<list.size(); i++){
+                int index = gen.generate(list.size());
+                Enemy e = list.get(index);
+                int Defense = e.defense();
+                messageCallBack.send(e.getName()+" rolled "+Defense+ " defense points.");
+                e.takeDamage((int)((0.1*HP.getCurr())- Defense));
+                messageCallBack.send(getName()+" hit "+e.getName()+" for "+Math.max(0,(0.1*HP.getCurr())- Defense)+ " ability damage.");
+                if(!e.alive())
+                    e.onDeath();
+            }
         }
+        else{
+            messageCallBack.send(getName()+ " tried to cast Avenger's shield but failed.");
+        }
+
     }
     public void tick(){
         super.tick();
@@ -58,5 +69,8 @@ public class Warrior extends Player {
     }
     public int castDefenseGain(){
         return level*CAST_DEFENSE_GAIN;
+    }
+    public String getDescription(){
+        return super.getDescription()+"         "+"Cooldown: "+remainingCooldown+"/"+abilityCooldown;
     }
 }

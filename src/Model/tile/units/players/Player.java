@@ -4,6 +4,7 @@ import Model.Utils.Position;
 import Model.tile.units.HeroicUnit;
 import Model.tile.units.Unit;
 import Model.tile.units.enemies.Enemy;
+import View.inputReader.InputReader;
 
 public abstract class Player extends Unit implements HeroicUnit {
     private static char Player_Tile='@';
@@ -27,6 +28,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         attack+=attackGain();
         defense+=defenseGain();
         level++;
+
     }
     protected int healthGain(){
         return level*HEALTH_GAIN;
@@ -66,6 +68,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         if(input == 'e'){
             castAbility();
         }
+
     }
 
     public void visit(Player p){}
@@ -80,6 +83,9 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
     public boolean enoughResource(int i){
         return i>=0;
+    }
+    public String getDescription(){
+        return super.getDescription()+"         "+"Level: "+level+"         "+"Experience: "+XP;
     }
 
 }

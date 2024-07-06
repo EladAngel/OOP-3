@@ -33,20 +33,31 @@ public abstract class Mage extends Player {
         super.levelUp();
         manaPool += manaPoolGain();
         currMana = currManaGain();
-        spellPower += SpellPowerGain();
+        spellPower += spellPowerGain();
+        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense, "+"+"+manaPoolGain()+" Maximum Mana, "+"+"+spellPowerGain()+" Spell Power");
 
     }
     public void castAbility(){
         if(enoughResource(currMana - manaCost)){
+            messageCallBack.send(getName()+" cast Blizzard.");
             currMana = currMana - manaCost;
             int hits = 0;
             List<Enemy> list = semiBoard.enemiesNearby(abilityRange,position);
             while(hits < hitCount && list != null){
                 int index = gen.generate(list.size());
-                list.get(index).takeDamage(spellPower);
+                Enemy e = list.get(index);
+                int Defense = e.defense();
+                messageCallBack.send(e.getName()+" rolled "+Defense+" defense points.");
+                list.get(index).takeDamage(spellPower - Defense);
+                messageCallBack.send(getName()+" hit "+e.getName()+" for "+ Math.max(0,spellPower - Defense)+" ability damage.");
+                if(!e.alive())
+                    e.onDeath();
                 hits += 1;
                 list = semiBoard.enemiesNearby(abilityRange,position);
             }
+        }
+        else{
+            messageCallBack.send(getName()+" tried to cast Blizzard but failed.");
         }
     }
     public void tick(){
@@ -59,7 +70,10 @@ public abstract class Mage extends Player {
     public int currManaGain(){
         return Math.min(currMana + manaPool/4, manaPool);
     }
-    public int SpellPowerGain(){
+    public int spellPowerGain(){
         return SPELL_POWER_GAIN * level;
+    }
+    public String getDescription(){
+        return super.getDescription()+"         "+"Mana: "+currMana+"/"+manaPool+"         "+"Spell Power: "+spellPower;
     }
 }

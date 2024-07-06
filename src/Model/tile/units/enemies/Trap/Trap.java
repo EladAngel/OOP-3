@@ -10,6 +10,7 @@ public class Trap extends Enemy {
     protected int tickCount;
     protected boolean visible;
     protected static final int RANGE = 1;
+    protected char visibleTile;
 
     public Trap(int XP, int attack, int defense, int HP, String name, char c, Position pos , int visibilityTime,int invisibilityTime) {
         super(XP, attack, defense, HP, name, c, pos);
@@ -17,6 +18,7 @@ public class Trap extends Enemy {
         this.invisibilityTime = invisibilityTime;
         this.visible = true;
         this.tickCount = 0;
+        this.visibleTile = c;
     }
     public void tick(){
         visible = tickCount < visibilityTime;
@@ -26,16 +28,20 @@ public class Trap extends Enemy {
         else{
             tickCount++;
         }
-        if(semiBoard.getPlayerPosition(RANGE,position)) {
+        if(semiBoard.getPlayerPosition(RANGE,position) != null) {
             Player p = semiBoard.getPlayer();
             p.takeDamage(attack);
             if(!p.alive())
                 p.onDeath();
         }
-        if(visible)
+        if(visible) {
             visibilityTime++;
-        else
+            tile = visibleTile;
+        }
+        else {
             invisibilityTime++;
+            tile = '.';
+        }
     }
 
 

@@ -2,6 +2,7 @@ package Model.tile.units.enemies.Monster.Boss;
 
 import Model.Utils.Position;
 import Model.tile.units.enemies.Monster.Monster;
+import Model.tile.units.players.Player;
 
 public class Boss extends Monster {
     protected int abilityFrequency;
@@ -31,8 +32,16 @@ public class Boss extends Monster {
         }
     }
     public void castAbility(){
-        battle(semiBoard.getPlayer());
-
-        //TODO chnage to not random
+        Player p = semiBoard.getPlayer();
+        messageCallBack.send(getName()+" shoots "+p.getName()+" for "+ attack+" damage.");
+        int Defense = p.defense();
+        messageCallBack.send(p.getName()+ " rolled "+Defense+" defense points.");
+        p.takeDamage(attack - Defense);
+        messageCallBack.send(getName()+" hit "+p.getName()+" for"+Math.max(0,attack - Defense)+" ability damage.");
+        if(!p.alive())
+            p.onDeath();
+    }
+    public String getDescription(){
+        return super.getDescription()+"         "+"Ability Frequency: "+abilityFrequency;
     }
 }

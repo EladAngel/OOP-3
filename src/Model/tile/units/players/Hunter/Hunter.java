@@ -24,15 +24,26 @@ public abstract class Hunter extends Player {
     public void levelUp(){
         super.levelUp();
         arrowCount += arrowGain();
+        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
     }
     public void castAbility(){
         if(enoughResource(arrowCount)){
-            Enemy e = semiBoard.ClosestEnemy(range,position);
+            Enemy e = semiBoard.closestEnemy(range,position);
             if(e != null) {
-                e.takeDamage(attack);
+                messageCallBack.send(getName()+" fired an arrow at "+e.getName()+".");
+                int Defense = e.defense();
+                messageCallBack.send(e.getName()+" rolled "+Defense+" defense points.");
+                e.takeDamage(attack - Defense);
+                messageCallBack.send(getName()+" hit "+e.getName()+" for "+ Math.max(0,attack - Defense)+ " ability damage.");
                 if (!e.alive())
                     e.onDeath();
             }
+            else{
+                messageCallBack.send(getName()+" tried to fire an arrow but there were no enemies in range.");
+            }
+        }
+        else{
+            messageCallBack.send(getName()+" tried to fire an arrow but failed.");
         }
         arrowCount--;
     }
@@ -53,6 +64,9 @@ public abstract class Hunter extends Player {
     }
     public int defenseGain(){
         return level*DEFENSE_GAIN;
+    }
+    public String getDescription(){
+        return super.getDescription() +"         "+"Arrows: "+arrowCount+"         "+"Range: "+range;
     }
 
 

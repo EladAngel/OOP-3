@@ -1,4 +1,5 @@
 package Model.tile.units;
+import Model.Board.SemiBoard;
 import Model.tile.Tile;
 import Model.Utils.Health;
 import Model.Utils.Position;
@@ -30,9 +31,17 @@ public abstract class Unit extends Tile {
         return generator.generate(defense);
     }
     public void battle(Unit enemy){
-        int attack=this.attack();
-        int defense=this.defense();
-        int damageTaken = enemy.HP.takeDamage(attack-defense);
+        messageCallBack.send(getName()+" engaged in combat with "+enemy.getName()+".");
+        messageCallBack.send(getDescription());
+        messageCallBack.send(enemy.getDescription());
+        int Attack=this.attack();
+        messageCallBack.send(getName()+ " rolled "+Attack+" attack points.");
+        int Defense=this.defense();
+        messageCallBack.send(getName()+ " rolled "+Defense+" defense points.");
+        int damageTaken = enemy.HP.takeDamage(Attack-Defense);
+        if(damageTaken>0){
+            messageCallBack.send(getName()+" dealt "+Math.max((Attack-Defense),0)+" damage to "+enemy.getName());
+        }
     }
     public void takeDamage(int damage){
         HP.takeDamage(damage);
@@ -51,5 +60,7 @@ public abstract class Unit extends Tile {
         return name;
     }
     public abstract void tick();
-
+    public String getDescription(){
+        return "Health: "+HP.getCurr()+"/"+HP.getMax() + "         "+"Attack: "+ attack + "         "+"Defense: "+ defense;
+    }
 }

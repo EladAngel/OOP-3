@@ -5,6 +5,9 @@ import Model.Utils.Generators.randomGenerator;
 import Model.Utils.Position;
 import Model.tile.units.Unit;
 import Model.tile.units.enemies.Enemy;
+import Model.Board.SemiBoard;
+
+import java.util.Random;
 
 public class Monster extends Enemy {
     protected int visionRange;
@@ -25,8 +28,15 @@ public class Monster extends Enemy {
         }
     }
     public void randomlyMove(){
-        //
+        if(gen.getRandomSign() ==1){
+            Position pos = new Position(position.getX() + gen.getRandomSign(), position.getY());
+            chooseMovement(pos);
         }
+        else{
+            Position pos = new Position(position.getX() , position.getY() + gen.getRandomSign());
+            chooseMovement(pos);
+        }
+    }
 
 
     public void moveLeft(){
@@ -41,22 +51,28 @@ public class Monster extends Enemy {
     public void moveDown() {
         interact(semiBoard.getTile(position.getX(), position.getY() - 1));
     }
-        public void chooseMovement (Position pos){
-            int dx = this.position.getX() - pos.getX();
-            int dy = this.position.getY() - pos.getY();
-            if (dx > dy) {
-                if (dx > 0) {
-                    moveLeft();
-                } else
-                    moveRight();
-            } else {
-                if (dy > 0) {
-                    moveUp();
-                } else
-                    moveDown();
-            }
+    public void chooseMovement (Position pos){
+        int dx = this.position.getX() - pos.getX();
+        int dy = this.position.getY() - pos.getY();
+        if (dx > dy) {
+            if (dx > 0) {
+                moveLeft();
+            } else
+                moveRight();
+        } else {
+            if (dy > 0) {
+                moveUp();
+            } else
+                moveDown();
         }
     }
+    public String getDescription(){
+        return super.getDescription()+"         "+"Vision Range: "+visionRange;
+    }
+
+
+
+}
 
 
 
