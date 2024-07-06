@@ -20,7 +20,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected InputReader inputReader;
     public Player(int attack, int defense, int HP, String name, Position pos, InputReader inputReader, Generator generator, SemiBoard semiBoard, MessageCallBack mc) {
         super(attack,defense,HP,name, Player_Tile,pos,generator,semiBoard, mc);
-        level = 0;
+        level = 1;
         XP = 0;
         this.inputReader = inputReader;
     }
@@ -61,13 +61,13 @@ public abstract class Player extends Unit implements HeroicUnit {
             interact(semiBoard.getTile(position.getX()+1,position.getY()));
         }
         if(input == 's'){
-            interact(semiBoard.getTile(position.getX(),position.getY()-1));
+            interact(semiBoard.getTile(position.getX(),position.getY()+1));
         }
         if(input == 'a'){
             interact(semiBoard.getTile(position.getX()-1,position.getY()));
         }
         if(input == 'w'){
-            interact(semiBoard.getTile(position.getX(),position.getY()+1));
+            interact(semiBoard.getTile(position.getX(),position.getY()-1));
         }
         if(input == 'e'){
             castAbility();
@@ -84,7 +84,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
     public void setBoard(SemiBoard semiBoard){ this.semiBoard = semiBoard; }
     public void onDeath(){
-        Player_Tile = 'X';
+        tile = 'X';
     }
     public boolean enoughResource(int i){
         return i>=0;

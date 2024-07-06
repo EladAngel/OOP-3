@@ -46,10 +46,10 @@ public class Monster extends Enemy {
         interact(semiBoard.getTile(position.getX()+1,position.getY()));
     }
     public void moveUp(){
-        interact(semiBoard.getTile(position.getX(),position.getY()+1));
+        interact(semiBoard.getTile(position.getX(),position.getY()-1));
     }
     public void moveDown() {
-        interact(semiBoard.getTile(position.getX(), position.getY() - 1));
+        interact(semiBoard.getTile(position.getX(), position.getY() + 1));
     }
     public void chooseMovement (Position pos){
         int dx = this.position.getX() - pos.getX();

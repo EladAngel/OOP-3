@@ -27,13 +27,13 @@ public class Warrior extends Player {
         remainingCooldown = 0;
     }
     public void levelUp(){
+        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
         super.levelUp();
         remainingCooldown = 0;
         HP.heal(healthGain());
         attack+=attackGain();
         defense+=defenseGain();
-        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
-    }
+           }
     public void castAbility(){
         if(remainingCooldown == 0){
             messageCallBack.send(getName()+" used Avenger's shield, healing for "+castDefenseGain()+".");
@@ -41,7 +41,7 @@ public class Warrior extends Player {
             HP.heal(castDefenseGain());
             List<Enemy> list = semiBoard.enemiesNearby(3,position);
             for(int i=0; i<list.size(); i++){
-                int index = generator.generate(list.size());
+                int index = generator.generate(list.size()-1);
                 Enemy e = list.get(index);
                 int Defense = e.defense();
                 messageCallBack.send(e.getName()+" rolled "+Defense+ " defense points.");
@@ -58,7 +58,7 @@ public class Warrior extends Player {
     }
     public void tick(){
         super.tick();
-        remainingCooldown--;
+        decreaseCooldown();
     }
     public int attackGain(){
         return level*ATTACK_GAIN;
@@ -75,4 +75,7 @@ public class Warrior extends Player {
     public String getDescription(){
         return super.getDescription()+"         "+"Cooldown: "+remainingCooldown+"/"+abilityCooldown;
     }
+     public void decreaseCooldown(){
+        remainingCooldown=Math.max(0, remainingCooldown-1);
+     }
 }

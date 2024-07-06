@@ -8,11 +8,13 @@ import View.OutPut.MessageCallBack;
 public abstract class  Tile {
     protected char tile;
     protected Position position;
+    protected SemiBoard semiBoard;
 
 
-    public Tile(char tile, Position position) {
+    public Tile(char tile, Position position,SemiBoard semiBoard) {
         this.tile = tile;
         this.position = position;
+        this.semiBoard = semiBoard;
     }
     public abstract void accept(Unit u);
     public String toString(){
@@ -21,11 +23,18 @@ public abstract class  Tile {
     public Position getPosition() {
         return position;
     }
-    public void swapPositions(Position p1, Position p2){
-        Position p = new Position(p1.getX(), p1.getX());
-        p1.setX(p2.getX());
-        p1.setY(p2.getY());
-        p2.setX(p.getX());
-        p2.setY(p.getY());
+    public void swapPositions(Tile toSwap){
+        Position newPosition = toSwap.getPosition();
+        toSwap.position = position;
+        position = newPosition;
+        semiBoard.remove(this);
+        semiBoard.remove(toSwap);
+        semiBoard.insert(this);
+        semiBoard.insert(toSwap);
+
+
+    }
+    public SemiBoard getSemi() {
+        return semiBoard;
     }
 }

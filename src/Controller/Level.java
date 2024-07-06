@@ -9,16 +9,17 @@ public class Level {
     private int num;
     private MessageCallBack mc;
 
-    public Level(Board board, int num){
+    public Level(Board board, int num, MessageCallBack mc){
         this.board=board;
         this.num=num;
+        this.mc=mc;
     }
     public void tick(){
         mc.send(board.getPlayer().getDescription());
         board.getPlayer().tick();
         for(Enemy enemy: board.enemies()){
             enemy.tick();
-            if(!board.getPlayer().alive()){}
+            if(!board.getPlayer().alive())
                 break;
         }
         mc.send(board.toString());
@@ -28,7 +29,6 @@ public class Level {
     public void run(){
         while(!board.enemies().isEmpty()&&board.getPlayer().alive())
             tick();
-        //TODO finish level
     }
     public int getNum(){
         return num;

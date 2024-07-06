@@ -14,7 +14,7 @@ import java.util.TreeMap;
 public class Board implements SemiBoard{
     private final TreeMap<Position, Tile> tiles;
     private final List<Enemy> enemies;
-    private final Player player;
+    private Player player;
     private final int width;
     private final int height;
 
@@ -30,13 +30,19 @@ public class Board implements SemiBoard{
     public void removeEnemy(Enemy enemy){
         enemies.remove(enemy);
         tiles.remove(enemy.getPosition());
-        tiles.put(enemy.getPosition(),new Empty(enemy.getPosition()));
+        tiles.put(enemy.getPosition(),new Empty(enemy.getPosition(),enemy.getSemi()));
     }
 
+    public void insert(Tile tile) {
+        tiles.put(tile.getPosition(),tile);
+    }
 
-    @Override
     public Tile getTile(int x, int y) {
         return tiles.get(new Position(x,y));
+    }
+
+    public void remove(Tile tile) {
+        tiles.remove(tile.getPosition());
     }
 
 
@@ -46,7 +52,7 @@ public class Board implements SemiBoard{
             if(pos.getDistance(enemy.getPosition())<=radius)
                 list.add(enemy);
         }
-        return enemies;
+        return list;
     }
 
 
@@ -75,12 +81,22 @@ public class Board implements SemiBoard{
 
     public String toString(){
         StringBuilder ans=new StringBuilder();
-        for(Tile tile: tiles.values()){
-            if(tile.getPosition().getX()%width==0)
-                ans.append("\n");
+        for(Position pos: tiles.keySet()){
+            Tile tile=tiles.get(pos);
             ans.append(tile);
+            if(tile.getPosition().getX()%width==(width-1))
+                ans.append("\n");
         }
         return ans.toString();
     }
     public List<Enemy> enemies(){return enemies;}
+
+    public void addCurrentPlayer(Player player) {
+        player.setBoard(this.player.getSemi());
+        player.getPosition().setX(this.player.getPosition().getX());
+        player.getPosition().setY(this.player.getPosition().getY());
+        this.tiles.remove(this.player.getPosition());
+        this.tiles.put(player.getPosition(),player);
+        this.player=player;
+    }
 }

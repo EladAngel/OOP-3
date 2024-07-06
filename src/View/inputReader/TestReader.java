@@ -9,6 +9,7 @@ public class TestReader implements InputReader{
     private int playerOrdinal;
     public TestReader(List<Character> list, int playerOrdinal){
         iter=list.iterator();
+        this.playerOrdinal=playerOrdinal;
     }
     public char getInput(){
         if(iter.hasNext())

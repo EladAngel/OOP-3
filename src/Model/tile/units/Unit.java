@@ -16,17 +16,15 @@ public abstract class Unit extends Tile {
     protected Health HP;
     protected String name;
     protected Generator generator;
-    protected SemiBoard semiBoard;
     protected MessageCallBack messageCallBack;
 
     public Unit(int attack, int defense, int HP, String name, char ch, Position pos,Generator generator, SemiBoard semiBoard, MessageCallBack mc) {
-        super(ch,pos);
+        super(ch,pos,semiBoard);
         this.attack=attack;
         this.defense=defense;
         this.HP=new Health(HP);
         this.name=name;
         this.generator=generator;
-        this.semiBoard=semiBoard;
         this.messageCallBack=mc;
     }
     public int attack(){
@@ -42,7 +40,7 @@ public abstract class Unit extends Tile {
         int Attack=this.attack();
         messageCallBack.send(getName()+ " rolled "+Attack+" attack points.");
         int Defense=this.defense();
-        messageCallBack.send(getName()+ " rolled "+Defense+" defense points.");
+        messageCallBack.send(enemy.getName()+ " rolled "+Defense+" defense points.");
         int damageTaken = enemy.takeDamage(Attack-Defense);
         messageCallBack.send(getName()+" dealt "+damageTaken+" damage to "+enemy.getName());
     }
@@ -55,7 +53,7 @@ public abstract class Unit extends Tile {
     }
     public void visit(Wall w){}
     public void visit(Empty e) {
-        swapPositions(e.getPosition(), getPosition());
+        this.swapPositions(e);
     }
     public abstract void visit(Enemy e);
     public abstract void visit(Player p);
@@ -64,6 +62,6 @@ public abstract class Unit extends Tile {
     }
     public abstract void tick();
     public String getDescription(){
-        return "Health: "+HP.getCurr()+"/"+HP.getMax() + "         "+"Attack: "+ attack + "         "+"Defense: "+ defense;
+        return getName()+"         "+"Health: "+HP.getCurr()+"/"+HP.getMax() + "         "+"Attack: "+ attack + "         "+"Defense: "+ defense;
     }
 }

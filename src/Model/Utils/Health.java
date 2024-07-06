@@ -9,8 +9,12 @@ public class Health {
         this.curr = max;
     }
     public int takeDamage(int damage) {
+        if(damage < 0) {
+            return 0;
+        }
+        int lastCurr = curr;
         curr = Math.max(curr - damage, 0);
-        return curr;
+        return Math.min(lastCurr,damage);
     }
     public boolean isAlive(){
         return curr>0;

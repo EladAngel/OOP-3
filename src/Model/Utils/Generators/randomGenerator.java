@@ -7,6 +7,7 @@ public class randomGenerator implements Generator{
         rand = new Random();
     }
     public int generate(int n){
+        if(n<=0)return 0;
        return rand.nextInt(n);
     }
     public int getRandomSign(){

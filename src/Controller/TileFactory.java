@@ -28,18 +28,18 @@ public class TileFactory {
 
     public void fillBoard(TreeMap<Position,Tile> board, List<Enemy> enemies,
           List<String> lines, Player player, Generator generator, MessageCallBack mc, InputReader in, SemiBoard semi) {
-        int i=0;
+        int j=0;
 
         for(String line : lines){
-            int j=0;
+            int i=0;
             for(Character c : line.toCharArray()){
                switch(c){
                    case '.':
-                       Tile e= new Empty(new Position(i,j));
+                       Tile e= new Empty(new Position(i,j),semi);
                        board.put(e.getPosition(),e);
                        break;
                    case '#':
-                       Tile w= new Wall(new Position(i,j));
+                       Tile w= new Wall(new Position(i,j),semi);
                        board.put(w.getPosition(),w);
                        break;
                    case '@':
@@ -47,14 +47,16 @@ public class TileFactory {
                        player.getPosition().setY(j);
                        player.setBoard(semi);
                        board.put(player.getPosition(),player);
+                       break;
                    default:
                        Enemy enemy= createEnemy(c,new Position(i,j),generator,semi,mc);
                        board.put(enemy.getPosition(),enemy);
                        enemies.add(enemy);
+                       break;
                }
-               j++;
+               i++;
             }
-            i++;
+            j++;
         }
     }
 

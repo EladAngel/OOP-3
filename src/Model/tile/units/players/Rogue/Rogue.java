@@ -23,10 +23,11 @@ public class Rogue extends Player {
         currentEnergy = CURR_ENERGY_INIT;
     }
     public void levelUp(){
+        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
         super.levelUp();
         attack += attackGain();
         currentEnergy = currEnergyGain();
-        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
+
     }
     public void castAbility(){
         if(enoughResource(currentEnergy - cost)) {

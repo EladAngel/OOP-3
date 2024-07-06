@@ -19,7 +19,7 @@ public class Mage extends Player {
     protected int hitCount;
     protected int abilityRange;
     protected static final int MANA_POOL_GAIN = 25;
-    protected static final int SPELL_POWER_GAIN = 25;
+    protected static final int SPELL_POWER_GAIN = 10;
     protected randomGenerator gen;
 
     public Mage(int attack, int defense, int HP, String name, Position pos, int manaPool, int manaCost, int spellPower,
@@ -34,11 +34,12 @@ public class Mage extends Player {
         gen = new randomGenerator();
     }
     public void levelUp(){
+        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense, "+"+"+manaPoolGain()+" Maximum Mana, "+"+"+spellPowerGain()+" Spell Power");
         super.levelUp();
         manaPool += manaPoolGain();
         currMana = currManaGain();
         spellPower += spellPowerGain();
-        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense, "+"+"+manaPoolGain()+" Maximum Mana, "+"+"+spellPowerGain()+" Spell Power");
+
 
     }
     public void castAbility(){
@@ -47,8 +48,8 @@ public class Mage extends Player {
             currMana = currMana - manaCost;
             int hits = 0;
             List<Enemy> list = semiBoard.enemiesNearby(abilityRange,position);
-            while(hits < hitCount && list != null){
-                int index = gen.generate(list.size());
+            while(hits < hitCount && list != null && !list.isEmpty()){
+                int index = gen.generate(list.size()-1);
                 Enemy e = list.get(index);
                 int Defense = e.defense();
                 messageCallBack.send(e.getName()+" rolled "+Defense+" defense points.");
@@ -59,6 +60,8 @@ public class Mage extends Player {
                 hits += 1;
                 list = semiBoard.enemiesNearby(abilityRange,position);
             }
+            if(list != null && list.isEmpty())
+                messageCallBack.send(getName()+" tried to cast Blizzard but there are no enemies around.");
         }
         else{
             messageCallBack.send(getName()+" tried to cast Blizzard but failed.");

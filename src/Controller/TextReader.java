@@ -13,10 +13,10 @@ public class TextReader
     public static List<String> read(String fileName){
         List<String> lines = null;
         try {
-            Path path = Paths.get(fileName);
+            Path path = Paths.get("Levels",fileName);
             lines = Files.readAllLines(path);
         } catch (IOException e) {
-            System.out.println("Error: An error occurred while reading the file '" + fileName + "'.");
+            System.out.println(e.getMessage());
         }
         return lines;
     }

@@ -27,9 +27,10 @@ public  class Hunter extends Player {
         this.tickCount = 0;
     }
     public void levelUp(){
+        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
         super.levelUp();
         arrowCount += arrowGain();
-        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
+
     }
     public void castAbility(){
         if(enoughResource(arrowCount)){
