@@ -6,21 +6,18 @@ import Model.tile.units.Unit;
 import Model.tile.units.enemies.Enemy;
 
 public abstract class Player extends Unit implements HeroicUnit {
-    private static final char Player_Tile='@';
+    private static char Player_Tile='@';
     protected static final int ATTACK_GAIN=4;
     protected static final int DEFENSE_GAIN=1;
     protected static final int LEVEL_REQ=50;
     protected static final int HEALTH_GAIN=10;
     protected  int level;
     protected int XP;
+    protected InputReader inputReader;
     public Player(int attack, int defense, int HP, String name, Position pos) {
         super(attack,defense,HP,name, Player_Tile,pos);
         level = 0;
         XP = 0;
-    }
-    public void kill(Enemy e) {
-        addExperience(e.getXP());
-        e.death();
     }
 
     public void levelUp(){
@@ -53,7 +50,22 @@ public abstract class Player extends Unit implements HeroicUnit {
         u.visit(this);
     }
     public void tick(){
-        char c = getInput();
+        char input = inputReader.getInput();
+        if(input == 'd'){
+            interact(semiBoard.getTile(position.getX()+1,position.getY()));
+        }
+        if(input == 's'){
+            interact(semiBoard.getTile(position.getX(),position.getY()-1));
+        }
+        if(input == 'a'){
+            interact(semiBoard.getTile(position.getX()-1,position.getY()));
+        }
+        if(input == 'w'){
+            interact(semiBoard.getTile(position.getX(),position.getY()+1));
+        }
+        if(input == 'e'){
+            castAbility();
+        }
     }
 
     public void visit(Player p){}
@@ -64,7 +76,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         }
     }
     public void onDeath(){
-
+        Player_Tile = 'X';
     }
     public boolean enoughResource(int i){
         return i>=0;

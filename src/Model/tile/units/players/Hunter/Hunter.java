@@ -27,7 +27,7 @@ public abstract class Hunter extends Player {
     }
     public void castAbility(){
         if(enoughResource(arrowCount)){
-            Enemy e = ClosestEnemy(range,position);
+            Enemy e = semiBoard.ClosestEnemy(range,position);
             if(e != null) {
                 e.takeDamage(attack);
                 if (!e.alive())
@@ -36,7 +36,15 @@ public abstract class Hunter extends Player {
         }
         arrowCount--;
     }
-
+    public void tick(){
+        super.tick();
+        if(tickCount == 10){
+            arrowCount = arrowCount + level;
+            tickCount = 0;
+        }
+        else
+            tickCount++;
+    }
     public int arrowGain(){
         return ARROW_GAIN * level;
     }

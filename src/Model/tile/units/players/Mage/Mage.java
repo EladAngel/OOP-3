@@ -17,7 +17,7 @@ public abstract class Mage extends Player {
     protected int abilityRange;
     protected static final int MANA_POOL_GAIN = 25;
     protected static final int SPELL_POWER_GAIN = 25;
-    protected Generator gen;
+    protected randomGenerator gen;
 
     public Mage(int attack, int defense, int HP, String name, Position pos, int manaPool, int manaCost, int spellPower, int hitCount, int abilityRange) {
         super(attack, defense, HP, name, pos);
@@ -40,14 +40,18 @@ public abstract class Mage extends Player {
         if(enoughResource(currMana - manaCost)){
             currMana = currMana - manaCost;
             int hits = 0;
-            List<Enemy> list = EnemiesNearby(abilityRange,position);
+            List<Enemy> list = semiBoard.enemiesNearby(abilityRange,position);
             while(hits < hitCount && list != null){
                 int index = gen.generate(list.size());
                 list.get(index).takeDamage(spellPower);
                 hits += 1;
-                list = EnemiesNearby(abilityRange,position);
+                list = semiBoard.enemiesNearby(abilityRange,position);
             }
         }
+    }
+    public void tick(){
+        super.tick();
+        currMana = Math.min(manaPool, currMana + level);
     }
     public int manaPoolGain(){
         return MANA_POOL_GAIN * level;

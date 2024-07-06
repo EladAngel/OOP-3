@@ -9,8 +9,8 @@ public class Health {
         this.curr = max;
     }
     public int takeDamage(int damage) {
-        return 0;
-        //implemet
+        curr = Math.max(curr - damage, 0);
+        return curr;
     }
     public boolean isAlive(){
         return curr>0;
@@ -18,8 +18,14 @@ public class Health {
     public void heal(){
         curr=max;
     }
+    public void heal(int addition){
+        curr = Math.min(max,curr+addition);
+    }
 
     public void addMax(int max) {
         this.max += max;
+    }
+    public int getCurr(){
+        return curr;
     }
 }

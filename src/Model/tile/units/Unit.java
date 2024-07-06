@@ -14,6 +14,8 @@ public abstract class Unit extends Tile {
     protected Health HP;
     protected String name;
     protected Generator generator;
+    protected SemiBoard semiBoard;
+
     public Unit(int attack, int defense, int HP, String name, char ch, Position pos) {
         super(ch,pos);
         this.attack=attack;
@@ -32,8 +34,8 @@ public abstract class Unit extends Tile {
         int defense=this.defense();
         int damageTaken = enemy.HP.takeDamage(attack-defense);
     }
-    public int takeDamage(int damage){
-        return HP.takeDamage(damage);
+    public void takeDamage(int damage){
+        HP.takeDamage(damage);
     }
     public boolean alive(){return HP.isAlive();}
     public void interact (Tile t){
@@ -48,5 +50,6 @@ public abstract class Unit extends Tile {
     public String getName(){
         return name;
     }
+    public abstract void tick();
 
 }

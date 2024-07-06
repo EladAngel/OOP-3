@@ -7,7 +7,7 @@ public abstract class  Tile {
     protected char tile;
     protected Position position;
     protected MessageCallBack messageCallBack;
-    protected SemiBoard semiBoard;
+
     public Tile(char tile, Position position) {
         this.tile = tile;
         this.position = position;

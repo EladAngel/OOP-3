@@ -15,9 +15,6 @@ public abstract class Enemy extends Unit {
     public int getXP() {
         return XP;
     }
-    public  void death(){
-        //delete enemy
-    }
     public void visit(Enemy e){}
     public void visit(Player p){
         battle(p);
@@ -26,10 +23,9 @@ public abstract class Enemy extends Unit {
         }
     }
     public void onDeath(){
-
+        semiBoard.removeEnemy(this);
     }
     public void accept(Unit u){
         u.visit(this);
     }
-
 }

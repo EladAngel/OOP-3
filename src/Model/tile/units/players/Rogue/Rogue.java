@@ -25,7 +25,7 @@ public class Rogue extends Player {
     public void castAbility(){
         if(enoughResource(currentEnergy - cost)) {
             currentEnergy = currentEnergy - cost;
-            List<Enemy> list = EnemiesNearby(1, position);
+            List<Enemy> list = semiBoard.EnemiesNearby(1, position);
             for (Enemy e : list) {
                 e.takeDamage(attack);
                 if (!e.alive()) {
@@ -33,6 +33,10 @@ public class Rogue extends Player {
                 }
             }
         }
+    }
+    public void tick(){
+        super.tick();
+        currentEnergy = Math.min(currentEnergy + 10,CURR_ENERGY_GAIN);
     }
     protected int attackGain(){
         return level*ATTACK_GAIN;
