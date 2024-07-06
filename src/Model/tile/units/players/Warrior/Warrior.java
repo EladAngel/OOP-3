@@ -27,12 +27,13 @@ public class Warrior extends Player {
         remainingCooldown = 0;
     }
     public void levelUp(){
-        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
-        super.levelUp();
+        messageCallBack.send(getName()+" reached level "+(level+1)+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
         remainingCooldown = 0;
         HP.heal(healthGain());
         attack+=attackGain();
         defense+=defenseGain();
+        super.levelUp();
+
            }
     public void castAbility(){
         if(remainingCooldown == 0){

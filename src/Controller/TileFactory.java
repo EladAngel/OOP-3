@@ -82,8 +82,8 @@ public class TileFactory {
 
     public Player createPlayer(int i, InputReader input, Generator gen, SemiBoard semi, MessageCallBack mc){
         return switch (i) {
-            case 1 -> new Warrior(30, 4, 300, "Jon Snow",new Position(-1,-1) , 0,input,gen,semi, mc);
-            case 2 -> new Warrior(20, 4, 400, "The Hound", new Position(-1,-1), 0,input,gen,semi , mc);
+            case 1 -> new Warrior(30, 4, 300, "Jon Snow",new Position(-1,-1) , 3,input,gen,semi, mc);
+            case 2 -> new Warrior(20, 6, 400, "The Hound", new Position(-1,-1), 5,input,gen,semi , mc);
             case 3 -> new Mage(5, 1, 100, "Melisandre", new Position(-1,-1), 300, 30, 15, 5, 6,input,gen,semi, mc);
             case 4 -> new Mage(25, 4, 250, "Thoros of Myr", new Position(-1,-1), 150, 20, 20, 3, 4,input,gen,semi, mc);
             case 5 -> new Rogue(40, 2, 150, "Arya Strak", new Position(-1,-1), 20,input,gen,semi, mc);

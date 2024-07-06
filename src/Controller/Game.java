@@ -54,7 +54,6 @@ public class Game {
             level.run();
             if(!player.alive()) {
                 mc.send(" Well You died in the game of thrones!");
-                mc.send(level.getBoard().toString());
                 break;
             }
             i++;

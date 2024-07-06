@@ -40,11 +40,9 @@ public class Trap extends Enemy {
                 p.onDeath();
         }
         if(visible) {
-            visibilityTime++;
             tile = visibleTile;
         }
         else {
-            invisibilityTime++;
             tile = '.';
         }
     }

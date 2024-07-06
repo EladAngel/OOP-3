@@ -27,13 +27,14 @@ public  class Hunter extends Player {
         this.tickCount = 0;
     }
     public void levelUp(){
-        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
-        super.levelUp();
+        messageCallBack.send(getName()+" reached level "+(level+1)+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
         arrowCount += arrowGain();
+        super.levelUp();
+
 
     }
     public void castAbility(){
-        if(enoughResource(arrowCount)){
+        if(enoughResource(arrowCount - 1)){
             Enemy e = semiBoard.closestEnemy(range,position);
             if(e != null) {
                 messageCallBack.send(getName()+" fired an arrow at "+e.getName()+".");
@@ -47,11 +48,12 @@ public  class Hunter extends Player {
             else{
                 messageCallBack.send(getName()+" tried to fire an arrow but there were no enemies in range.");
             }
+            arrowCount--;
         }
         else{
             messageCallBack.send(getName()+" tried to fire an arrow but failed.");
         }
-        arrowCount--;
+
     }
     public void tick(){
         super.tick();

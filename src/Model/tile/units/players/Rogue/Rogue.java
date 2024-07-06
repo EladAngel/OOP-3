@@ -23,17 +23,19 @@ public class Rogue extends Player {
         currentEnergy = CURR_ENERGY_INIT;
     }
     public void levelUp(){
-        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
-        super.levelUp();
+
+        messageCallBack.send(getName()+" reached level "+(level+1)+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense");
         attack += attackGain();
         currentEnergy = currEnergyGain();
+        super.levelUp();
+
 
     }
     public void castAbility(){
         if(enoughResource(currentEnergy - cost)) {
             messageCallBack.send(getName()+" cast Fan Of Knives.");
             currentEnergy = currentEnergy - cost;
-            List<Enemy> list = semiBoard.enemiesNearby(1, position);
+            List<Enemy> list = semiBoard.enemiesNearby(1.5, position);
             for (Enemy e : list) {
                 int Defense = e.defense();
                 messageCallBack.send(e.getName()+" rolled "+Defense+" defense points.");

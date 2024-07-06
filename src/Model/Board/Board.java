@@ -46,7 +46,7 @@ public class Board implements SemiBoard{
     }
 
 
-    public List<Enemy> enemiesNearby(int radius, Position pos) {
+    public List<Enemy> enemiesNearby(double radius, Position pos) {
         List<Enemy> list = new ArrayList<>();
         for(Enemy enemy: enemies){
             if(pos.getDistance(enemy.getPosition())<=radius)

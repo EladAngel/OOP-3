@@ -34,11 +34,11 @@ public class Mage extends Player {
         gen = new randomGenerator();
     }
     public void levelUp(){
-        messageCallBack.send(getName()+" reached level "+level+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense, "+"+"+manaPoolGain()+" Maximum Mana, "+"+"+spellPowerGain()+" Spell Power");
-        super.levelUp();
+        messageCallBack.send(getName()+" reached level "+(level+1)+": "+"+"+healthGain()+" Health, "+ "+"+attackGain()+" Attack, "+"+"+defenseGain()+" Defense, "+"+"+manaPoolGain()+" Maximum Mana, "+"+"+spellPowerGain()+" Spell Power");
         manaPool += manaPoolGain();
         currMana = currManaGain();
         spellPower += spellPowerGain();
+        super.levelUp();
 
 
     }

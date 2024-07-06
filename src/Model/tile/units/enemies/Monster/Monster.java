@@ -54,7 +54,7 @@ public class Monster extends Enemy {
     public void chooseMovement (Position pos){
         int dx = this.position.getX() - pos.getX();
         int dy = this.position.getY() - pos.getY();
-        if (dx > dy) {
+        if (Math.abs(dx) > Math.abs(dy)) {
             if (dx > 0) {
                 moveLeft();
             } else
