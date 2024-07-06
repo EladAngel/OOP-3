@@ -14,5 +14,8 @@ public class ScannerReader implements InputReader{
      private boolean isValid(char c){
          return(c=='q' || c=='w' || c=='e' || c=='a'|| c=='s' || c=='d');
      }
+     public int getNum(){
+        return new Scanner(System.in).nextInt();
+     }
  }
 

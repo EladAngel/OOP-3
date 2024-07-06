@@ -1,33 +1,34 @@
-package Model;
+package Controller;
 
 import Model.Board.Board;
-import Model.tile.Tile;
-import Model.tile.units.Unit;
 import Model.tile.units.enemies.Enemy;
-import Model.tile.units.players.Player;
-
-import java.util.List;
+import View.OutPut.MessageCallBack;
 
 public class Level {
-    private Board board;
+    private final Board board;
     private int num;
+    private MessageCallBack mc;
 
     public Level(Board board, int num){
         this.board=board;
         this.num=num;
     }
     public void tick(){
-        board.player().tick();
+        mc.send(board.getPlayer().getDescription());
+        board.getPlayer().tick();
         for(Enemy enemy: board.enemies()){
             enemy.tick();
-            if(!board.player().alive()){}
-                //TODO end game
+            if(!board.getPlayer().alive()){}
+                break;
         }
+        mc.send(board.toString());
+        mc.send("");
+
     }
     public void run(){
         while(!board.enemies().isEmpty())
             tick();
-        //TODO finish game
+        //TODO finish level
     }
 
 }

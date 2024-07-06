@@ -28,6 +28,7 @@ public abstract class Enemy extends Unit {
     public void onDeath(){
 
     }
+    public void tick(){}
     public void accept(Unit u){
         u.visit(this);
     }

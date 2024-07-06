@@ -18,11 +18,9 @@ public class Board implements SemiBoard{
     private final int width;
 
 
-    public Board(List<Tile> list, int width, int height, List<Enemy>enemies, Player player){
+    public Board(TreeMap<Position,Tile> tiles, int width, int height, List<Enemy>enemies, Player player){
         this.player = player;
-        tiles = new TreeMap<>(new PositionComparator());
-        for(Tile tile : list)
-            tiles.put(tile.getPosition(), tile);
+        this.tiles = tiles;
         this.width = width;
         this.enemies=enemies;
     }
@@ -55,6 +53,23 @@ public class Board implements SemiBoard{
         return null;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Enemy closestEnemy(int range, Position pos) {
+        double min=range;
+        Enemy ans=null;
+        for(Enemy enemy: enemies){
+            if(min>=pos.getDistance(enemy.getPosition())) {
+                ans = enemy;
+                min=pos.getDistance(enemy.getPosition());
+            }
+
+        }
+        return ans;
+    }
+
     public String toString(){
         StringBuilder ans=new StringBuilder();
         for(Tile tile: tiles.values()){
@@ -64,6 +79,5 @@ public class Board implements SemiBoard{
         }
         return ans.toString();
     }
-    public Player player(){return player;}
     public List<Enemy> enemies(){return enemies;}
 }
