@@ -7,7 +7,7 @@ import Model.tile.units.players.Player;
 
 import java.util.List;
 
-public abstract class Hunter extends Player {
+public  class Hunter extends Player {
     protected int range;
     protected int arrowCount;
     protected int tickCount;

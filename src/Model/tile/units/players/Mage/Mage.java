@@ -8,7 +8,7 @@ import Model.tile.units.players.Player;
 
 import java.util.List;
 
-public abstract class Mage extends Player {
+public class Mage extends Player {
     protected int manaPool;
     protected int currMana;
     protected int manaCost;

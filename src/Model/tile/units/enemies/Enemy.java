@@ -30,6 +30,7 @@ public abstract class Enemy extends Unit {
         messageCallBack.send(p.getName()+" gained "+getXP()+" experience.");
 
     }
+    public void tick(){}
     public void accept(Unit u){
         u.visit(this);
     }
