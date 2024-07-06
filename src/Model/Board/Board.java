@@ -16,6 +16,7 @@ public class Board implements SemiBoard{
     private final List<Enemy> enemies;
     private final Player player;
     private final int width;
+    private final int height;
 
 
     public Board(TreeMap<Position,Tile> tiles, int width, int height, List<Enemy>enemies, Player player){
@@ -23,10 +24,12 @@ public class Board implements SemiBoard{
         this.tiles = tiles;
         this.width = width;
         this.enemies=enemies;
+        this.height = height;
     }
 
     public void removeEnemy(Enemy enemy){
         enemies.remove(enemy);
+        tiles.remove(enemy.getPosition());
         tiles.put(enemy.getPosition(),new Empty(enemy.getPosition()));
     }
 

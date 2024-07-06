@@ -1,5 +1,7 @@
 package Model.tile.units.players;
 
+import Model.Board.SemiBoard;
+import Model.Utils.Generators.Generator;
 import Model.Utils.Position;
 import Model.tile.units.HeroicUnit;
 import Model.tile.units.Unit;
@@ -15,10 +17,11 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected  int level;
     protected int XP;
     protected InputReader inputReader;
-    public Player(int attack, int defense, int HP, String name, Position pos) {
-        super(attack,defense,HP,name, Player_Tile,pos);
+    public Player(int attack, int defense, int HP, String name, Position pos, InputReader inputReader, Generator generator, SemiBoard semiBoard) {
+        super(attack,defense,HP,name, Player_Tile,pos,generator,semiBoard);
         level = 0;
         XP = 0;
+        this.inputReader = inputReader;
     }
 
     public void levelUp(){

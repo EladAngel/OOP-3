@@ -1,10 +1,12 @@
 package Model.tile.units.players.Warrior;
 
+import Model.Board.SemiBoard;
 import Model.Utils.Generators.Generator;
 import Model.Utils.Generators.randomGenerator;
 import Model.Utils.Position;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
+import View.inputReader.InputReader;
 
 import java.util.List;
 
@@ -15,14 +17,12 @@ public class Warrior extends Player {
     public static final int DEFENSE_GAIN = 1;
     public static final int HEALTH_GAIN = 5;
     public static final int CAST_DEFENSE_GAIN = 5;
-    protected randomGenerator gen;
 
 
-    public Warrior(int attack, int defense, int HP, String name, Position pos, int cooldown){
-        super(attack, defense, HP, name, pos);
+    public Warrior(int attack, int defense, int HP, String name, Position pos, int cooldown, InputReader inputReader, Generator generator, SemiBoard semiBoard){
+        super(attack, defense, HP, name, pos,inputReader,generator,semiBoard);
         this.abilityCooldown = cooldown;
         remainingCooldown = 0;
-        gen = new randomGenerator();
     }
     public void levelUp(){
         super.levelUp();
@@ -39,7 +39,7 @@ public class Warrior extends Player {
             HP.heal(castDefenseGain());
             List<Enemy> list = semiBoard.enemiesNearby(3,position);
             for(int i=0; i<list.size(); i++){
-                int index = gen.generate(list.size());
+                int index = generator.generate(list.size());
                 Enemy e = list.get(index);
                 int Defense = e.defense();
                 messageCallBack.send(e.getName()+" rolled "+Defense+ " defense points.");

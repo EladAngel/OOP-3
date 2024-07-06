@@ -1,5 +1,7 @@
 package Model.tile.units.enemies.Monster.Boss;
 
+import Model.Board.SemiBoard;
+import Model.Utils.Generators.Generator;
 import Model.Utils.Position;
 import Model.tile.units.enemies.Monster.Monster;
 import Model.tile.units.players.Player;
@@ -8,8 +10,8 @@ public class Boss extends Monster {
     protected int abilityFrequency;
     protected int combatTicks;
 
-    public Boss(int XP, int attack, int defense, int HP, String name, char c, Position pos, int visionRange, int abilityFrequency) {
-        super(XP,attack,defense,HP,name,c,pos,visionRange);
+    public Boss(int XP, int attack, int defense, int HP, String name, char c, Position pos, int visionRange, int abilityFrequency, Generator generator, SemiBoard semiBoard) {
+        super(XP,attack,defense,HP,name,c,pos,visionRange,generator,semiBoard);
         this.abilityFrequency = abilityFrequency;
         combatTicks = 0;
     }

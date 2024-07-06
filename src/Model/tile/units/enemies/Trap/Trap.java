@@ -1,10 +1,14 @@
 package Model.tile.units.enemies.Trap;
 
+import Model.Board.SemiBoard;
+import Model.Utils.Generators.Generator;
 import Model.Utils.Position;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
 
 public class Trap extends Enemy {
+
+    //TODO add logic player cant attack invisible trap
     protected int visibilityTime;
     protected int invisibilityTime;
     protected int tickCount;
@@ -12,8 +16,8 @@ public class Trap extends Enemy {
     protected static final int RANGE = 1;
     protected char visibleTile;
 
-    public Trap(int XP, int attack, int defense, int HP, String name, char c, Position pos , int visibilityTime,int invisibilityTime) {
-        super(XP, attack, defense, HP, name, c, pos);
+    public Trap(int XP, int attack, int defense, int HP, String name, char c, Position pos , int visibilityTime, int invisibilityTime, Generator generator, SemiBoard semiBoard) {
+        super(XP, attack, defense, HP, name, c, pos,generator, semiBoard);
         this.visibilityTime = visibilityTime;
         this.invisibilityTime = invisibilityTime;
         this.visible = true;
@@ -30,7 +34,7 @@ public class Trap extends Enemy {
         }
         if(semiBoard.getPlayerPosition(RANGE,position) != null) {
             Player p = semiBoard.getPlayer();
-            p.takeDamage(attack);
+            battle(p);
             if(!p.alive())
                 p.onDeath();
         }

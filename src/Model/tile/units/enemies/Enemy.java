@@ -1,5 +1,7 @@
 package Model.tile.units.enemies;
 
+import Model.Board.SemiBoard;
+import Model.Utils.Generators.Generator;
 import Model.Utils.Position;
 import Model.tile.units.Unit;
 import Model.tile.units.players.Player;
@@ -8,8 +10,8 @@ import Model.tile.units.players.Player;
 public abstract class Enemy extends Unit {
     protected int XP;
 
-    public Enemy(int XP, int attack, int defense, int HP, String name, char c, Position pos) {
-        super(attack,defense,HP,name,c,pos);
+    public Enemy(int XP, int attack, int defense, int HP, String name, char c, Position pos, Generator generator, SemiBoard semiBoard) {
+        super(attack,defense,HP,name,c,pos,generator,semiBoard);
         this.XP=XP;
     }
     public int getXP() {
@@ -26,8 +28,9 @@ public abstract class Enemy extends Unit {
         messageCallBack.send(getName()+" died.");
         semiBoard.removeEnemy(this);
         Player p = semiBoard.getPlayer();
-        p.addExperience(getXP());
         messageCallBack.send(p.getName()+" gained "+getXP()+" experience.");
+        p.addExperience(getXP());
+
 
     }
     public void tick(){}

@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TestReader implements InputReader{
-    private static final char EROR_CHAR='!';
+    private static final char ERROR_CHAR='!';
     private Iterator<Character> iter;
     private int playerOrdinal;
     public TestReader(List<Character> list, int playerOrdinal){
@@ -13,7 +13,7 @@ public class TestReader implements InputReader{
     public char getInput(){
         if(iter.hasNext())
             return iter.next();
-        return EROR_CHAR;
+        return ERROR_CHAR;
     }
     public int getNum(){return playerOrdinal;}
 }

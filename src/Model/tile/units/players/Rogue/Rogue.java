@@ -1,8 +1,11 @@
 package Model.tile.units.players.Rogue;
 
+import Model.Board.SemiBoard;
+import Model.Utils.Generators.Generator;
 import Model.Utils.Position;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
+import View.inputReader.InputReader;
 
 import java.util.List;
 
@@ -12,8 +15,8 @@ public class Rogue extends Player {
     protected int CURR_ENERGY_INIT;
     protected static final int ATTACK_GAIN = 3;
     protected static final int CURR_ENERGY_GAIN = 100;
-    public Rogue(int attack, int defense, int HP, String name, Position pos, int cost) {
-        super(attack, defense, HP, name, pos);
+    public Rogue(int attack, int defense, int HP, String name, Position pos, int cost, InputReader inputReader, Generator generator, SemiBoard semiBoard) {
+        super(attack, defense, HP, name, pos, inputReader, generator, semiBoard);
         this.cost = cost;
         currentEnergy = CURR_ENERGY_INIT;
     }

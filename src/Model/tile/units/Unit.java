@@ -17,12 +17,14 @@ public abstract class Unit extends Tile {
     protected Generator generator;
     protected SemiBoard semiBoard;
 
-    public Unit(int attack, int defense, int HP, String name, char ch, Position pos) {
+    public Unit(int attack, int defense, int HP, String name, char ch, Position pos,Generator generator, SemiBoard semiBoard) {
         super(ch,pos);
         this.attack=attack;
         this.defense=defense;
         this.HP=new Health(HP);
         this.name=name;
+        this.generator=generator;
+        this.semiBoard=semiBoard;
     }
     public int attack(){
         return generator.generate(attack);

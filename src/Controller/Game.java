@@ -27,32 +27,14 @@ public class Game {
     private TileFactory factory;
 
     public Game(List<String> fileNames){
-        input= new ScannerReader();
-        mc= new CLI().getMessageCallBack();
-        player=createPlayer();
-        levels=new ArrayList<Level>();
-        factory =new TileFactory();
-        int i=0;
-        for(String name: fileNames){
-            List<String> lines=TextReader.read(name);
-            Pair<Integer,Integer> boardSize= TextReader.getSize(name);
-            Pair<TreeMap<Position, Tile>,List<Enemy>> board=factory.createBoard(lines,player);
-            Board b= new Board(
-                    board.getFirst(),
-                    boardSize.getFirst(),
-                    boardSize.getSecond(),
-                    board.getSecond(),
-                    player );
-            levels.add(new Level(b,i));
-            i++;
-        }
+         new Game(fileNames,new ScannerReader());
     }
-        public Game(List<String> fileNames, InputReader input){
+    public Game(List<String> fileNames, InputReader input){
         this.input=input;
+        factory =new TileFactory();
         mc= new CLI().getMessageCallBack();
         player=createPlayer();
         levels=new ArrayList<Level>();
-        TileFactory factory =new TileFactory();
         int i=0;
         for(String name: fileNames){
             List<String> lines=TextReader.read(name);
@@ -71,16 +53,20 @@ public class Game {
     public void run(){
         mc.send("When you play the game of thrones, you win or you die. There is no middle ground.");
         for(Level level : levels){
+            mc.send("Welcome to chapter "+level.getNum());
+            mc.send(level.getBoard().toString());
             level.run();
-            if(!player.alive())
+            if(!player.alive()) {
+                mc.send(" Well You died in the game of thrones!");
                 break;
+            }
 
         }
         if(player.alive())
             mc.send("Well played you won the game of thrones!");
-        else
-            mc.send(" Well You died the game of thrones!");
+
     }
+
     public Player createPlayer(){
         mc.send("Select player:\n" +
                 "1. Jon Snow             Health: 300/300         Attack: 30              Defense: 4              Level: 1                Experience: 0/50                Cooldown: 0/3\n" +

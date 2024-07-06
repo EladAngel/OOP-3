@@ -1,9 +1,12 @@
 package Model.tile.units.players.Hunter;
 
+import Model.Board.SemiBoard;
+import Model.Utils.Generators.Generator;
 import Model.Utils.Position;
 import Model.tile.Tile;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
+import View.inputReader.InputReader;
 
 import java.util.List;
 
@@ -15,8 +18,8 @@ public  class Hunter extends Player {
     protected static int DEFENSE_GAIN = 1;
     protected static int ARROW_GAIN = 10;
 
-    public Hunter(int attack, int defense, int HP, String name, Position pos, int range){
-        super(attack, defense, HP, name, pos);
+    public Hunter(int attack, int defense, int HP, String name, Position pos, int range, InputReader inputReader, Generator generator, SemiBoard semiBoard){
+        super(attack, defense, HP, name, pos, inputReader, generator, semiBoard);
         this.arrowCount = level*10;
         this.range = range;
         this.tickCount = 0;

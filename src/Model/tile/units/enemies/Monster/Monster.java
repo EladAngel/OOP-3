@@ -11,12 +11,11 @@ import java.util.Random;
 
 public class Monster extends Enemy {
     protected int visionRange;
-    protected randomGenerator gen;
 
-    public Monster(int XP, int attack, int defense, int HP, String name, char c, Position pos ,int range) {
-        super(XP, attack, defense, HP, name, c, pos);
+    public Monster(int XP, int attack, int defense, int HP, String name, char c, Position pos ,int range,Generator generator, SemiBoard semiBoard) {
+        super(XP, attack, defense, HP, name, c, pos,generator, semiBoard);
         visionRange = range;
-        gen = new randomGenerator();
+
     }
     public void tick(){
         Position pos = semiBoard.getPlayerPosition(visionRange,position);
@@ -28,12 +27,12 @@ public class Monster extends Enemy {
         }
     }
     public void randomlyMove(){
-        if(gen.getRandomSign() ==1){
-            Position pos = new Position(position.getX() + gen.getRandomSign(), position.getY());
+        if(generator.getRandomSign() ==1){
+            Position pos = new Position(position.getX() + generator.getRandomSign(), position.getY());
             chooseMovement(pos);
         }
         else{
-            Position pos = new Position(position.getX() , position.getY() + gen.getRandomSign());
+            Position pos = new Position(position.getX() , position.getY() + generator.getRandomSign());
             chooseMovement(pos);
         }
     }

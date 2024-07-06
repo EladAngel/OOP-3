@@ -26,9 +26,15 @@ public class Level {
 
     }
     public void run(){
-        while(!board.enemies().isEmpty())
+        while(!board.enemies().isEmpty()&&board.getPlayer().alive())
             tick();
         //TODO finish level
+    }
+    public int getNum(){
+        return num;
+    }
+    public Board getBoard(){
+        return board;
     }
 
 }
