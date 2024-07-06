@@ -1,7 +1,9 @@
 package Model.tile;
 
+import Model.Board.SemiBoard;
 import Model.Utils.Position;
 import Model.tile.units.Unit;
+import View.OutPut.MessageCallBack;
 
 public abstract class  Tile {
     protected char tile;
