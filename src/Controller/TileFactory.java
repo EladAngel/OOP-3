@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class TileFactory {
+public class  TileFactory {
 
     public void fillBoard(TreeMap<Position,Tile> board, List<Enemy> enemies,
           List<String> lines, Player player, Generator generator, MessageCallBack mc, InputReader in, SemiBoard semi) {

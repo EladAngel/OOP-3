@@ -1,3 +1,5 @@
+package Model.tile.units.players;
+
 import Controller.Game;
 import Model.Utils.Generators.FixedGenerator;
 import Model.Utils.Generators.Generator;
@@ -17,7 +19,6 @@ public class Main {
         list.add("level2.txt");
         list.add("level3.txt");
         list.add("level4.txt");
-        list.add("level5.txt");
         List<Character> input = new ArrayList<>();
         for(int i = 0; i < 1000; i++){
             randomChar();

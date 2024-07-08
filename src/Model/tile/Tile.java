@@ -24,17 +24,12 @@ public abstract class  Tile {
         return position;
     }
     public void swapPositions(Tile toSwap){
-        Position newPosition = toSwap.getPosition();
-        toSwap.position = position;
-        position = newPosition;
-        semiBoard.remove(this);
-        semiBoard.remove(toSwap);
-        semiBoard.insert(this);
-        semiBoard.insert(toSwap);
-
-
+        semiBoard.replace(this,toSwap);
     }
     public SemiBoard getSemi() {
         return semiBoard;
+    }
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

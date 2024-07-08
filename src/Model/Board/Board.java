@@ -29,22 +29,12 @@ public class Board implements SemiBoard{
 
     public void removeEnemy(Enemy enemy){
         enemies.remove(enemy);
-        tiles.remove(enemy.getPosition());
-        tiles.put(enemy.getPosition(),new Empty(enemy.getPosition(),enemy.getSemi()));
-    }
-
-    public void insert(Tile tile) {
-        tiles.put(tile.getPosition(),tile);
+        tiles.replace(enemy.getPosition(),new Empty(enemy.getPosition(),this));
     }
 
     public Tile getTile(int x, int y) {
         return tiles.get(new Position(x,y));
     }
-
-    public void remove(Tile tile) {
-        tiles.remove(tile.getPosition());
-    }
-
 
     public List<Enemy> enemiesNearby(double radius, Position pos) {
         List<Enemy> list = new ArrayList<>();
@@ -77,6 +67,15 @@ public class Board implements SemiBoard{
 
         }
         return ans;
+    }
+
+
+    public void replace(Tile tile1, Tile tile2) {
+        Position pos= tile1.getPosition();
+        tile1.setPosition(tile2.getPosition());
+        tile2.setPosition(pos);
+        tiles.replace(tile2.getPosition(),tile2);
+        tiles.replace(tile1.getPosition(),tile1);
     }
 
     public String toString(){
