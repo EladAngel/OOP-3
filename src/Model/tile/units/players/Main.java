@@ -6,27 +6,19 @@ import Model.Utils.Generators.Generator;
 import View.OutPut.CLI;
 import View.inputReader.InputReader;
 import View.inputReader.TestReader;
-
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<String> list = new ArrayList<String>();
-        list.add("level1.txt");
-        list.add("level2.txt");
-        list.add("level3.txt");
-        list.add("level4.txt");
-        List<Character> input = new ArrayList<>();
-        for(int i = 0; i < 1000; i++){
-            randomChar();
-        }
-        InputReader in = new TestReader(input,1);
-        Generator gen= new FixedGenerator();
-        CLI cli= new CLI();
-        Game game = new Game(list);
+        String path = args[0];
+        File directory = new File(path);
+        List<String> files = Arrays.asList(directory.list());
+        Game game = new Game(files);
         game.run();
     }
     public static char randomChar(){

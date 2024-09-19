@@ -60,6 +60,7 @@ public abstract class Unit extends Tile {
     public String getName(){
         return name;
     }
+    public int health(){return HP.getCurr(); }
     public abstract void tick();
     public String getDescription(){
         return getName()+"         "+"Health: "+HP.getCurr()+"/"+HP.getMax() + "         "+"Attack: "+ attack + "         "+"Defense: "+ defense;

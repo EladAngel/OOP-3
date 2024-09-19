@@ -6,7 +6,7 @@ import Model.tile.Empty;
 import Model.tile.Tile;
 import Model.tile.units.enemies.Enemy;
 import Model.tile.units.players.Player;
-
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -17,7 +17,10 @@ public class Board implements SemiBoard{
     private Player player;
     private final int width;
     private final int height;
-
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String RESET = "\u001B[0m";
+    public static final List<Character> Cenemies = Arrays.asList('s','k','q','z','b','g','w','M','G','K','B','Q','D');
 
     public Board(TreeMap<Position,Tile> tiles, int width, int height, List<Enemy>enemies, Player player){
         this.player = player;
@@ -82,8 +85,22 @@ public class Board implements SemiBoard{
         StringBuilder ans=new StringBuilder();
         for(Position pos: tiles.keySet()){
             Tile tile=tiles.get(pos);
-            ans.append(tile);
-            if(tile.getPosition().getX()%width==(width-1))
+            if(tile.toString().equals("@")){
+                ans.append(GREEN);
+                ans.append(tile);
+                ans.append(RESET);
+
+            }
+            else if(Cenemies.contains(tile.toString().charAt(0))){
+                ans.append(RED);
+                ans.append(tile);
+                ans.append(RESET);
+
+            }
+            else{
+                ans.append(tile);
+            }
+            if(pos.getX()%width==(width-1))
                 ans.append("\n");
         }
         return ans.toString();
